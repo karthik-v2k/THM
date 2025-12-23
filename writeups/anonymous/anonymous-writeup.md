@@ -1,8 +1,7 @@
 # TryHackMe - Anonymous Writeup
 
 **Challenge:** https://tryhackme.com/room/anonymous  
-**Target IP:** 10.201.29.134  
-**Author's IP:** 10.17.19.104
+**Target IP:** 10.201.29.134
 
 ---
 
