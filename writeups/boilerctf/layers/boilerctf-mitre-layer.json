@@ -1,0 +1,433 @@
+{
+  "name": "Boiler CTF - TryHackMe Room",
+  "description": "MITRE ATT&CK Navigator layer mapping for the Boiler CTF challenge. Shows attack techniques across reconnaissance, web exploitation, credential access, lateral movement, and privilege escalation phases.",
+  "versions": {
+    "attack": "18",
+    "navigator": "5.2.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "filters": {
+    "platforms": [
+      "Linux",
+      "Web Application",
+      "PRE"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": false,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false,
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1592",
+      "tactic": "reconnaissance",
+      "color": "",
+      "comment": "Gather Victim Host Information - Enumeration of web services and host details",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Reconnaissance"
+        },
+        {
+          "name": "Tools",
+          "value": "Nmap, Directory enumeration tools"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1592.002",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Host Information: Software - Enumerated SSH version (OpenSSH 7.2p2) and Joomla/sar2html versions",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Impact",
+          "value": "High - Identified vulnerable sar2html 3.2.1 application"
+        },
+        {
+          "name": "Discovery Method",
+          "value": "Service version scanning and web directory enumeration"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1592.004",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Host Information: Client Configurations - Discovered web application structure (/joomla/_test directory)",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "HTTP directory enumeration and web browsing"
+        },
+        {
+          "name": "Key Finding",
+          "value": "Found .tar file with sar2html version information"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595",
+      "tactic": "reconnaissance",
+      "color": "",
+      "comment": "Active Scanning - Port and service scanning for vulnerability identification",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Initial Reconnaissance"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1595.001",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Scanning IP Blocks - Full port enumeration using Nmap",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Command",
+          "value": "nmap -p- 10.201.124.36"
+        },
+        {
+          "name": "Result",
+          "value": "Identified 7 open/filtered ports including SSH on non-standard port 55007"
+        },
+        {
+          "name": "Duration",
+          "value": "1230.88 seconds for complete port scan"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595.002",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Vulnerability Scanning - Service version detection and fingerprinting",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Command",
+          "value": "nmap -p 55007 -A 10.201.124.36"
+        },
+        {
+          "name": "Services Identified",
+          "value": "OpenSSH 7.2p2, HTTP services, Joomla CMS"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595.003",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Web Application Scanning - Enumerated HTTP directories and discovered vulnerable web applications",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "HTTP GET requests and directory enumeration"
+        },
+        {
+          "name": "Key Finding",
+          "value": "Located /joomla and /joomla/_test directories containing sar2html"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1190",
+      "tactic": "initial-access",
+      "color": "#e60d0d",
+      "comment": "Exploit Public-Facing Application - sar2html 3.2.1 RCE vulnerability exploitation",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Vulnerability",
+          "value": "Remote Code Execution via improper input validation in 'plot' parameter"
+        },
+        {
+          "name": "Vulnerability ID",
+          "value": "Exploit-DB 49344"
+        },
+        {
+          "name": "Impact",
+          "value": "Critical - Unauthenticated RCE as web application user"
+        },
+        {
+          "name": "Exploit Method",
+          "value": "Python script executing arbitrary commands through web interface"
+        },
+        {
+          "name": "CVSS Score",
+          "value": "9.8 (Critical)"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1552",
+      "tactic": "credential-access",
+      "color": "",
+      "comment": "Unsecured Credentials - Discovery of exposed credentials in multiple locations",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Credential Access"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1552.001",
+      "tactic": "credential-access",
+      "color": "#e60d0d",
+      "comment": "Unsecured Credentials: Credentials in Files - Hardcoded credentials in shell scripts and exposed in log files",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Primary Discovery",
+          "value": "Credentials for 'basterd' user found in sar2html log files via RCE"
+        },
+        {
+          "name": "Credentials Found",
+          "value": "basterd:superduperp@$$ (from logs), stoner:superduperp@$$no1knows (from .sh script)"
+        },
+        {
+          "name": "Vector",
+          "value": "Application logs accessible through RCE; hardcoded creds in shell scripts"
+        },
+        {
+          "name": "Impact",
+          "value": "Enabled lateral movement between user accounts"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1021",
+      "tactic": "lateral-movement",
+      "color": "",
+      "comment": "Remote Service Session Initiation - SSH lateral movement between compromised accounts",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Lateral Movement"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1021.004",
+      "tactic": "lateral-movement",
+      "color": "#e60d0d",
+      "comment": "Remote Service Session Initiation: SSH/Secure Shell - Lateral movement from web application context to user accounts",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Movement Vector",
+          "value": "SSH on non-standard port 55007"
+        },
+        {
+          "name": "User Chain",
+          "value": "web-app user → basterd user → stoner user (via credential discovery)"
+        },
+        {
+          "name": "Credentials Used",
+          "value": "basterd:superduperp@$$ then stoner:superduperp@$$no1knows"
+        },
+        {
+          "name": "Commands",
+          "value": "ssh -p 55007 basterd@10.201.124.36 | ssh -p 55007 stoner@10.201.124.36"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1548",
+      "tactic": "privilege-escalation",
+      "color": "",
+      "comment": "Abuse Elevation Control Mechanism - Exploitation of SUID binary for privilege escalation",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Privilege Escalation"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1548.001",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Abuse Elevation Control Mechanism: Setuid and Setgid - Exploited /usr/bin/find SUID binary for root escalation",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Vulnerable Binary",
+          "value": "/usr/bin/find with SUID bit set"
+        },
+        {
+          "name": "Exploitation Command",
+          "value": "find . -exec /bin/sh -p \\; -quit"
+        },
+        {
+          "name": "Privilege Escalation",
+          "value": "stoner user (uid 1000) → root user (uid 0)"
+        },
+        {
+          "name": "Result",
+          "value": "Root shell obtained with full system access"
+        },
+        {
+          "name": "Reference",
+          "value": "GTFOBins - https://gtfobins.github.io/gtfobins/find/"
+        },
+        {
+          "name": "CVSS Score",
+          "value": "7.8 (High)"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1548.001",
+      "tactic": "defense-evasion",
+      "color": "#e60d0d",
+      "comment": "Abuse Elevation Control Mechanism: Setuid and Setgid - Used -p flag to preserve privileges in shell",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Defense Evasion Technique",
+          "value": "The -p flag in /bin/sh preserves effective user ID despite normal shell reset"
+        },
+        {
+          "name": "Purpose",
+          "value": "Maintains root privileges obtained from SUID execution"
+        },
+        {
+          "name": "Effectiveness",
+          "value": "Bypasses privilege restrictions normally applied by shells"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1203",
+      "tactic": "execution",
+      "color": "#e60d0d",
+      "comment": "Exploit for Privilege Escalation - Remote code execution via vulnerable sar2html application",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Exploit Type",
+          "value": "Web application RCE"
+        },
+        {
+          "name": "Execution Context",
+          "value": "Commands executed with web server process privileges"
+        },
+        {
+          "name": "Impact",
+          "value": "Enabled access to application logs and system information"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ff6666ff",
+      "#ffe766ff",
+      "#8ec843ff"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Red (#e60d0d) = Actively Exploited Techniques",
+      "color": "#e60d0d"
+    },
+    {
+      "label": "Yellow = Enumeration & Discovery Phase",
+      "color": "#ffe766ff"
+    },
+    {
+      "label": "Green = Critical Exploitation Success",
+      "color": "#8ec843ff"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "Challenge",
+      "value": "TryHackMe - Boiler CTF"
+    },
+    {
+      "name": "Difficulty",
+      "value": "Intermediate"
+    },
+    {
+      "name": "Target IP",
+      "value": "10.201.124.36"
+    },
+    {
+      "name": "Date Completed",
+      "value": "2025-10-20"
+    },
+    {
+      "name": "Attack Chain",
+      "value": "Port Scanning → Web Enumeration → sar2html RCE → Log Credential Harvest → SSH Lateral Movement → SUID Exploitation → Root Access"
+    },
+    {
+      "name": "Key Vulnerability",
+      "value": "sar2html 3.2.1 Remote Code Execution (CVSS 9.8)"
+    },
+    {
+      "name": "Attack Complexity",
+      "value": "Medium - Multi-stage exploitation with credential discovery and escalation"
+    }
+  ],
+  "links": [],
+  "showTacticRowBackground": false,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}
