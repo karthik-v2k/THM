@@ -1,0 +1,457 @@
+{
+  "name": "nerdHerd - TryHackMe Room",
+  "description": "MITRE ATT&CK Navigator layer mapping for nerdHerd challenge. Uses T1068 (Exploitation of Privilege Escalation Vulnerability) instead of T1548.001 for CVE-2017-16995 kernel exploit. This challenge includes significant CTF/puzzle elements (cipher decryption, steganography) alongside standard exploitation techniques. Mapped 13 techniques across reconnaissance, discovery, credential access, lateral movement, and privilege escalation.",
+  "versions": {
+    "attack": "18",
+    "navigator": "5.2.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "filters": {
+    "platforms": [
+      "Linux",
+      "PRE"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": false,
+    "showName": true,
+    "showAggregateScores": false,
+    "countUnscored": false,
+    "expandedSubtechniques": "annotated"
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1592",
+      "tactic": "reconnaissance",
+      "color": "",
+      "comment": "Gather Victim Host Information - Service version and configuration enumeration",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Reconnaissance"
+        },
+        {
+          "name": "Tools Used",
+          "value": "Nmap with aggressive scanning (-A flag)"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1592.002",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Host Information: Software - Identified vsftpd 3.0.3, OpenSSH 7.2p2, Samba 4.3.11",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "Nmap aggressive port scanning with service detection"
+        },
+        {
+          "name": "Services Enumerated",
+          "value": "FTP (vsftpd 3.0.3), SSH (OpenSSH 7.2p2), SMB (Samba 4.3.11)"
+        },
+        {
+          "name": "Impact",
+          "value": "Identified FTP anonymous access and SMB shares"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1592.004",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Gather Victim Host Information: Client Configurations - SMB configuration and share discovery",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "Nmap SMB scripts (smb-security-mode, smb-os-discovery)"
+        },
+        {
+          "name": "Information Found",
+          "value": "NERDHERD hostname, Samba version, message signing disabled"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595",
+      "tactic": "reconnaissance",
+      "color": "",
+      "comment": "Active Scanning - Port and service scanning using Nmap",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Initial Reconnaissance"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1595.001",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Scanning IP Blocks - Full TCP port enumeration",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Command",
+          "value": "nmap -A 10.201.7.126"
+        },
+        {
+          "name": "Results",
+          "value": "4 open ports identified: FTP(21), SSH(22), NetBIOS(139), SMB(445)"
+        },
+        {
+          "name": "Duration",
+          "value": "290.85 seconds for complete enumeration"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1595.002",
+      "tactic": "reconnaissance",
+      "color": "#e60d0d",
+      "comment": "Active Scanning: Vulnerability Scanning - Service version and vulnerability detection",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Tools Used",
+          "value": "Nmap service detection scripts"
+        },
+        {
+          "name": "Vulnerabilities Identified",
+          "value": "Outdated SSH and Samba versions with known CVEs"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1046",
+      "tactic": "discovery",
+      "color": "#e60d0d",
+      "comment": "Network Service Discovery - SMB service enumeration and discovery",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "Nmap SMB enumeration scripts"
+        },
+        {
+          "name": "Services Discovered",
+          "value": "SMB shares: nerdherd_classified, print$, IPC$"
+        },
+        {
+          "name": "Tools",
+          "value": "nmap -p 445 --script smb-enum-shares"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1087",
+      "tactic": "discovery",
+      "color": "#e60d0d",
+      "comment": "Account Discovery - SMB user enumeration discovered 'chuck' user",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Method",
+          "value": "Nmap SMB user enumeration script"
+        },
+        {
+          "name": "Users Discovered",
+          "value": "chuck (RID: 1000, Full name: ChuckBartowski)"
+        },
+        {
+          "name": "Command",
+          "value": "nmap -p 445 --script smb-enum-users 10.201.7.126"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1135",
+      "tactic": "discovery",
+      "color": "#e60d0d",
+      "comment": "Network Share Discovery - SMB share enumeration and access control assessment",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Shares Enumerated",
+          "value": "nerdherd_classified (path: /home/chuck/nerdherd_classified)"
+        },
+        {
+          "name": "Access Control",
+          "value": "Initially: no anonymous access; After SMB login: READ access"
+        },
+        {
+          "name": "Files Found",
+          "value": "secr3t.txt (hint to subdirectory), creds.txt (SSH credentials)"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1552",
+      "tactic": "credential-access",
+      "color": "",
+      "comment": "Unsecured Credentials - Multiple credential sources found",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Phase",
+          "value": "Credential Access"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1552.001",
+      "tactic": "credential-access",
+      "color": "#e60d0d",
+      "comment": "Unsecured Credentials: Credentials in Files - Plaintext credentials found in SMB shares",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Credential Sources",
+          "value": "secr3t.txt and creds.txt in SMB share nerdherd_classified"
+        },
+        {
+          "name": "Credentials Found",
+          "value": "SSH: chuck : th1s41ntmypa5s | SMB: chuck : easypass (from cipher decryption)"
+        },
+        {
+          "name": "File Locations",
+          "value": "/this1sn0tadirect0ry/creds.txt (hint via secr3t.txt)"
+        },
+        {
+          "name": "Access Chain",
+          "value": "SMB share → SSH credentials → System access"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1021.002",
+      "tactic": "lateral-movement",
+      "color": "#e60d0d",
+      "comment": "Remote Service Session Initiation: SMB/Windows Admin Shares - SMB access with discovered credentials",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Service",
+          "value": "SMB (port 445)"
+        },
+        {
+          "name": "Credentials Used",
+          "value": "chuck : easypass (derived from Vigenere cipher with key 'birdistheword')"
+        },
+        {
+          "name": "Share Accessed",
+          "value": "nerdherd_classified"
+        },
+        {
+          "name": "Decryption Note",
+          "value": "Cipher decryption (non-standard MITRE technique) - Vigenere cipher solution enabled access"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1021.004",
+      "tactic": "lateral-movement",
+      "color": "#e60d0d",
+      "comment": "Remote Service Session Initiation: SSH/Secure Shell - SSH access using credentials from SMB share",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Service",
+          "value": "SSH (port 22)"
+        },
+        {
+          "name": "Credentials Used",
+          "value": "chuck : th1s41ntmypa5s (from creds.txt in SMB share)"
+        },
+        {
+          "name": "Access Result",
+          "value": "User shell access obtained, user flag captured"
+        },
+        {
+          "name": "Credential Source",
+          "value": "SMB file: /this1sn0tadirect0ry/creds.txt"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1068",
+      "tactic": "privilege-escalation",
+      "color": "#e60d0d",
+      "comment": "Exploitation of Privilege Escalation Vulnerability - CVE-2017-16995 kernel BPF subsystem vulnerability",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Vulnerability",
+          "value": "CVE-2017-16995 - Linux kernel BPF (Berkeley Packet Filter) vulnerability"
+        },
+        {
+          "name": "Vulnerability Type",
+          "value": "Kernel code execution vulnerability - NOT a setuid binary"
+        },
+        {
+          "name": "Exploit Used",
+          "value": "Exploit-DB 45010"
+        },
+        {
+          "name": "Discovery Method",
+          "value": "linux-exploit-suggester tool identified the CVE as first suggestion"
+        },
+        {
+          "name": "Exploitation Method",
+          "value": "Compiled C exploit code targeting kernel BPF subsystem, executed to gain root privileges"
+        },
+        {
+          "name": "Escalation Path",
+          "value": "chuck user (uid=1000) → root user (uid=0) via kernel vulnerability exploitation"
+        },
+        {
+          "name": "Why T1068 (Not T1548.001)",
+          "value": "T1068 covers vulnerability exploitation; T1548.001 specifically covers setuid/sgid binary abuse (not applicable here)"
+        },
+        {
+          "name": "MITRE Definition Reference",
+          "value": "T1068: Exploitation of a vulnerability in the OS or software to gain elevated privileges"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    },
+    {
+      "techniqueID": "T1083",
+      "tactic": "discovery",
+      "color": "#e60d0d",
+      "comment": "File and Directory Discovery - Used find command to locate hidden root flag",
+      "enabled": true,
+      "metadata": [
+        {
+          "name": "Discovery Command",
+          "value": "find / -type f -name '*root*' 2>/dev/null"
+        },
+        {
+          "name": "Purpose",
+          "value": "Located hidden root flag file (not in /root/root.txt)"
+        },
+        {
+          "name": "Additional Discovery",
+          "value": "Also examined .bash_history for bonus flag discovery"
+        }
+      ],
+      "links": [],
+      "showSubtechniques": false
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ff6666ff",
+      "#ffe766ff",
+      "#8ec843ff"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Red (#e60d0d) = Actively Exploited/Used Techniques",
+      "color": "#e60d0d"
+    },
+    {
+      "label": "Yellow = Discovery and Reconnaissance Phase",
+      "color": "#ffe766ff"
+    },
+    {
+      "label": "Green = Critical Exploitation Success",
+      "color": "#8ec843ff"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "Challenge",
+      "value": "TryHackMe - nerdHerd"
+    },
+    {
+      "name": "Challenge Type",
+      "value": "CTF with puzzle elements + standard exploitation"
+    },
+    {
+      "name": "Difficulty",
+      "value": "Medium-Hard"
+    },
+    {
+      "name": "Target IP",
+      "value": "10.201.7.126"
+    },
+    {
+      "name": "Date Completed",
+      "value": "2025-10-21"
+    },
+    {
+      "name": "Attack Chain",
+      "value": "Port Scanning → Service Enumeration → Cipher Decryption → SMB Access → SSH Access → Kernel Exploitation → Root"
+    },
+    {
+      "name": "Privilege Escalation Technique",
+      "value": "T1068 (Exploitation of Privilege Escalation Vulnerability) - CVE-2017-16995 kernel exploit"
+    },
+    {
+      "name": "Unique Challenge Element",
+      "value": "Heavy CTF components: Vigenere cipher decryption, steganography, hint hunting - these don't map cleanly to MITRE ATT&CK"
+    },
+    {
+      "name": "Real Exploitation Techniques",
+      "value": "13 MITRE techniques mapped (reconnaissance, discovery, lateral movement, privilege escalation)"
+    },
+    {
+      "name": "Key Vulnerability",
+      "value": "CVE-2017-16995 (Linux kernel BPF subsystem vulnerability)"
+    },
+    {
+      "name": "Credential Chaining",
+      "value": "FTP hint → Vigenere cipher key → SMB password → SSH credentials → Root access"
+    },
+    {
+      "name": "Critical Technique Correction",
+      "value": "Originally mapped as T1548.001 but CORRECTED to T1068. T1068 is correct because CVE-2017-16995 is a KERNEL VULNERABILITY, not a setuid binary abuse. T1548.001 applies only to setuid/sgid binary misconfiguration."
+    }
+  ],
+  "links": [],
+  "showTacticRowBackground": false,
+  "tacticRowBackground": "#dddddd",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": false,
+  "selectVisibleTechniques": false
+}
