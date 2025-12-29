@@ -2,8 +2,7 @@
 
 **Challenge:** https://tryhackme.com/room/nerdherd  
 **Target IP:** 10.201.7.126  
-**Author's IP:** 10.17.19.104  
-**Date Completed:** 2025-10-21
+**Author's IP:** 10.17.19.104
 
 ---
 
