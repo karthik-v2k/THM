@@ -6,3 +6,4 @@
 -  **Boiler-CTF:** [Boiler-CTF](https://github.com/karthik-v2k/THM/tree/Boiler-CTF)
 -  **NerdHerd:** [NerdHerd](https://github.com/karthik-v2k/THM/tree/NerdHerd)
 -  **Revenge:** [Revenge](https://github.com/karthik-v2k/THM/tree/Revenge)
+-  **Breaking RSA:** [Breaking RSA](https://github.com/karthik-v2k/THM/tree/Breaking_RSA)
