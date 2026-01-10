@@ -1,0 +1,370 @@
+{
+	"name": "Breaking RSA",
+	"versions": {
+		"attack": "18",
+		"navigator": "5.2.0",
+		"layer": "4.5"
+	},
+	"domain": "enterprise-attack",
+	"description": "",
+	"filters": {
+		"platforms": [
+			"Linux",
+			"PRE"
+		]
+	},
+	"sorting": 0,
+	"layout": {
+		"layout": "side",
+		"aggregateFunction": "average",
+		"showID": false,
+		"showName": true,
+		"showAggregateScores": false,
+		"countUnscored": false,
+		"expandedSubtechniques": "none"
+	},
+	"hideDisabled": false,
+	"techniques": [
+		{
+			"techniqueID": "T1592",
+			"tactic": "reconnaissance",
+			"color": "",
+			"comment": "Gather Victim Host Information - Service and software enumeration",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Reconnaissance"
+				}
+			],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1592.002",
+			"tactic": "reconnaissance",
+			"color": "#e60d0d",
+			"comment": "Software - Nmap service version detection identified OpenSSH 8.2p1 and nginx 1.18.0",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Reconnaissance"
+				},
+				{
+					"name": "Tool",
+					"value": "Nmap (-A aggressive scan)"
+				},
+				{
+					"name": "Services Enumerated",
+					"value": "SSH 22/tcp - OpenSSH 8.2p1 Ubuntu, HTTP 80/tcp - nginx 1.18.0"
+				},
+				{
+					"name": "OS Detection",
+					"value": "Ubuntu Linux (OS fingerprinting successful)"
+				},
+				{
+					"name": "Scan Duration",
+					"value": "26.76 seconds"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1592.004",
+			"tactic": "reconnaissance",
+			"color": "#e60d0d",
+			"comment": "Client Configurations - Web application framework and directory discovery via gobuster",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Reconnaissance"
+				},
+				{
+					"name": "Tool",
+					"value": "gobuster"
+				},
+				{
+					"name": "Wordlist",
+					"value": "common.txt (4750 words)"
+				},
+				{
+					"name": "Web Endpoints Discovered",
+					"value": "/development/, /index.html"
+				},
+				{
+					"name": "Critical Discovery",
+					"value": "/development/ directory contains id_rsa.pub (4096-bit RSA key) and log.txt (vulnerability info)"
+				},
+				{
+					"name": "Application",
+					"value": "Jack Of All Trades - Web server"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1071",
+			"tactic": "command-and-control",
+			"color": "#e60d0d",
+			"comment": "Application Layer Protocol - SSH command execution using recovered RSA private key",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Command and Control"
+				},
+				{
+					"name": "Protocol",
+					"value": "SSH (Secure Shell)"
+				},
+				{
+					"name": "Authentication Method",
+					"value": "RSA Public Key Authentication"
+				},
+				{
+					"name": "User",
+					"value": "root"
+				},
+				{
+					"name": "Command Execution",
+					"value": "Post-authentication shell access with full system privileges"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1595",
+			"tactic": "reconnaissance",
+			"color": "",
+			"comment": "Active Scanning - Port scanning and vulnerability assessment",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Reconnaissance"
+				}
+			],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1595.003",
+			"tactic": "reconnaissance",
+			"color": "#e60d0d",
+			"comment": "Web Application Scanning - Directory enumeration to identify sensitive files",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Reconnaissance"
+				},
+				{
+					"name": "Tool",
+					"value": "gobuster"
+				},
+				{
+					"name": "Scanning Method",
+					"value": "HTTP directory enumeration with 150 threads"
+				},
+				{
+					"name": "Total Directories Tested",
+					"value": "4750 words"
+				},
+				{
+					"name": "Sensitive Directories Found",
+					"value": "/development/ - contains cryptographic keys and vulnerability hints"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1595.001",
+			"tactic": "reconnaissance",
+			"color": "#e60d0d",
+			"comment": "Scanning IP Blocks - Full TCP port scan with Nmap on target 10.49.170.222",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Reconnaissance"
+				},
+				{
+					"name": "Command",
+					"value": "nmap -A 10.49.170.222"
+				},
+				{
+					"name": "Ports Found",
+					"value": "SSH port 22/tcp (open), HTTP port 80/tcp (open), 998 closed ports"
+				},
+				{
+					"name": "Network Distance",
+					"value": "4 hops"
+				},
+				{
+					"name": "Latency",
+					"value": "0.025 seconds"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1649",
+			"tactic": "credential-access",
+			"color": "#e60d0d",
+			"comment": "Steal or Forge Kerberos Tickets - Cryptanalysis to recover RSA private key from weak key generation",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Credential Access"
+				},
+				{
+					"name": "Vulnerability Type",
+					"value": "Weak RSA Key Generation - Prime factors p and q extremely close"
+				},
+				{
+					"name": "Key Size",
+					"value": "4096-bit RSA (16360-bit modulus)"
+				},
+				{
+					"name": "Attack Vector",
+					"value": "Fermat's Factorization Method"
+				},
+				{
+					"name": "Key Components",
+					"value": "Modulus n: 16360 bits, Public exponent e: 65537, Prime p: ~1024 bits, Prime q: ~1024 bits"
+				},
+				{
+					"name": "Factorization Result",
+					"value": "Successfully recovered p and q from n and e"
+				},
+				{
+					"name": "Private Exponent Calculation",
+					"value": "Computed d = modinv(e, (p-1)*(q-1))"
+				},
+				{
+					"name": "Result",
+					"value": "Complete RSA private key recovered - enables SSH authentication as root"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1588",
+			"tactic": "resource-development",
+			"color": "",
+			"comment": "Obtain Capabilities - Acquire necessary tools and cryptographic knowledge",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Resource Development"
+				}
+			],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1588.003",
+			"tactic": "resource-development",
+			"color": "#e60d0d",
+			"comment": "Code - PyCryptodome library for RSA key construction and cryptographic operations",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Resource Development"
+				},
+				{
+					"name": "Tool",
+					"value": "PyCryptodome (Python cryptography library)"
+				},
+				{
+					"name": "Modules Used",
+					"value": "RSA key construction, key export (PEM format)"
+				},
+				{
+					"name": "Python Code",
+					"value": "Custom script using Cryptodome.PublicKey.RSA and libnum for modular operations"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1587",
+			"tactic": "resource-development",
+			"color": "",
+			"comment": "Develop Capabilities - Create tools and scripts for exploitation",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Resource Development"
+				}
+			],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1587.002",
+			"tactic": "resource-development",
+			"color": "#e60d0d",
+			"comment": "Develop Capabilities: Code - Python script implementing RSA private key recovery from p, q, e, n",
+			"enabled": true,
+			"metadata": [
+				{
+					"name": "Phase",
+					"value": "Resource Development"
+				},
+				{
+					"name": "Script Purpose",
+					"value": "RSA private key generation from recovered components"
+				},
+				{
+					"name": "Algorithm",
+					"value": "Fermat's Factorization Method (off-the-shelf)"
+				},
+				{
+					"name": "Key Generation Process",
+					"value": "1) Factor n into p and q, 2) Calculate d = modinv(e, (p-1)*(q-1)), 3) Construct RSA key object, 4) Export as PEM format"
+				},
+				{
+					"name": "Output Format",
+					"value": "PEM-encoded RSA private key (-----BEGIN RSA PRIVATE KEY-----)"
+				},
+				{
+					"name": "Usage",
+					"value": "SSH authentication: ssh -i private_rsa root@10.49.170.222"
+				}
+			],
+			"links": [],
+			"showSubtechniques": false
+		}
+	],
+	"gradient": {
+		"colors": [
+			"#ff6666ff",
+			"#ffe766ff",
+			"#8ec843ff"
+		],
+		"minValue": 0,
+		"maxValue": 100
+	},
+	"legendItems": [],
+	"metadata": [],
+	"links": [],
+	"showTacticRowBackground": false,
+	"tacticRowBackground": "#dddddd",
+	"selectTechniquesAcrossTactics": true,
+	"selectSubtechniquesWithParent": false,
+	"selectVisibleTechniques": false
+}
