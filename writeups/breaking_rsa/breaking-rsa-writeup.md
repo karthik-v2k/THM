@@ -85,8 +85,7 @@ The `/development/` directory contains critical files:
 - **Prime Factors (p & q)**: The two large prime numbers whose product is the modulus (n); essential for key generation and kept secret. 
 - **Private Exponent (d)**: The secret exponent used for decryption and signing.Calculated from p, q, and e
 ```
-phi (n) = (p-1) × (q-1)
-e × d \equiv 1quad (mod phi (n)))
+$d \equiv e^{-1} \pmod{(p-1)(q-1)}$
 ```
 
 **Fermat's Factorization Method** exploits the mathematical property that when p and q are very close to each other:
