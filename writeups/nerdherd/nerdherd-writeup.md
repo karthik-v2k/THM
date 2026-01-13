@@ -468,21 +468,17 @@ find / -type f -name "*root*" 2>/dev/null
 - /root/root.txt (no flag content)
 - /root/.ssh/ (directory)
 - Other root files
-
-**Systematic Search:**
-
-```bash
-find / -type f -name "*flag*" 2>/dev/null
-```
+- ....
+- /opt/.root.txt (File containig the flag)
 
 **Root Flag:** Successfully located and captured
 
 ### 4. Bonus Flag Discovery
 
-Examined bash history for additional information:
+Examined bash history as good practice and by happenstance found bonus flag (before Privilege Escalation and Root Flag):
 
 ```bash
-cat /root/.bash_history
+cat .bash_history
 ```
 
 **Bonus Flag:** Found in bash history
