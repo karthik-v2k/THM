@@ -689,11 +689,11 @@ cat /root/.bash_history
 
 ## XV. References
 
-- **MITRE ATT&CK Framework:** https://attack.mitre.org/
+- **SMB Client Documentation:** https://www.samba.org/samba/docs/current/man-html/smbclient.1.html
 - **CVE-2017-16995:** https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-16995
 - **Exploit-DB 45010:** https://www.exploit-db.com/exploits/45010
 - **linux-exploit-suggester:** https://github.com/The-Z-Labs/linux-exploit-suggester
-- **Nmap Documentation:** https://nmap.org/
+- **Nmap Scripts:** https://nmap.org/nsedoc/scripts/
 - **OWASP Guidelines:** https://owasp.org/
 
 ---
