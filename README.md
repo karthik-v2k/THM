@@ -1,9 +1,22 @@
-## THM
-### Writeups along with MITRE ATT&CK Mapping for few of the completed Try Hack Me Challenges are listed below
-### [THM Profile](https://tryhackme.com/p/qwertyqwertyqwerty?tab=completed-rooms)
+# TryHackMe Challenge Writeups
 
--  **Anonymous:** [Anonymous](https://github.com/karthik-v2k/THM/tree/Anonymous)
--  **Boiler-CTF:** [Boiler-CTF](https://github.com/karthik-v2k/THM/tree/Boiler-CTF)
--  **NerdHerd:** [NerdHerd](https://github.com/karthik-v2k/THM/tree/NerdHerd)
--  **Revenge:** [Revenge](https://github.com/karthik-v2k/THM/tree/Revenge)
--  **Breaking RSA:** [Breaking RSA](https://github.com/karthik-v2k/THM/tree/Breaking_RSA)
+Security research documentation of TryHackMe challenges with MITRE ATT&CK mapping.
+[THM Profile](https://tryhackme.com/p/qwertyqwertyqwerty)
+
+## Challenges Documented in this repo
+
+| Challenge | Difficulty | Topics |
+|-----------|-----------|--------|
+| [Anonymous](https://github.com/karthik-v2k/THM/tree/Anonymous) | Easy-Medium | FTP, SMB, Privilege Escalation |
+| [Boiler-CTF](https://github.com/karthik-v2k/THM/tree/Boiler-CTF) | Medium | Web exploitation, Joomla |
+| [NerdHerd](https://github.com/karthik-v2k/THM/tree/NerdHerd) | Medium | SMB, Lateral Movement |
+| [Revenge](https://github.com/karthik-v2k/THM/tree/Revenge) | Medium | SQL Injection, Web Security |
+| [Breaking RSA](https://github.com/karthik-v2k/THM/tree/Revenge) | Hard | Cryptography, RSA factorization |
+
+## Skills Demonstrated
+- Network reconnaissance
+- Vulnerability identification
+- Exploitation techniques
+- Privilege escalation
+- Cryptanalysis
+- MITRE ATT&CK framework
