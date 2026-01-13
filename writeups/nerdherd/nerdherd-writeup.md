@@ -467,9 +467,9 @@ find / -type f -name "*root*" 2>/dev/null
 **Files Found:**
 - /root/root.txt (no flag content)
 - /root/.ssh/ (directory)
-- Other root files
-- ....
-- /opt/.root.txt (File containig the flag)
+- Other root files...
+- ...
+- /opt/.root.txt (File containing the root flag)
 
 **Root Flag:** Successfully located and captured
 
