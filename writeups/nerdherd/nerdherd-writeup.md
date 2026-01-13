@@ -185,7 +185,7 @@ nmap -p 1337 10.201.7.126
 ### 2. Website Analysis
 
 **Main Page Content:**
-- Popup messages mentioning "something is left here for me (us) to find"
+- Popup messages mentioning 'something is left here for me (us) to find'
 - Website contains Easter eggs and hints
 
 ### 3. Source Code Inspection
@@ -387,7 +387,7 @@ Used automated vulnerability scanner:
 - **CVE-2017-16995** - First and most promising suggestion
 - Linux kernel BPF subsystem vulnerability
 
-### 3. CVE-2017-16995 Analysis
+### 3. [CVE-2017-16995](https://www.exploit-db.com/exploits/45010) Analysis
 
 **Vulnerability Details:**
 - **CVE ID:** CVE-2017-16995
@@ -404,7 +404,7 @@ Used automated vulnerability scanner:
 
 ### 4. Exploit Compilation & Execution
 
-Downloaded and compiled exploit:
+Downloaded and transfered the exploit to the target machine, compiled on target and exploit:
 
 ```bash
 # Download exploit code
